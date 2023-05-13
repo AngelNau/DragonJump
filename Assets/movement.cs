@@ -15,8 +15,15 @@ public class movement : MonoBehaviour
     public int axisRand = 1;
     float timer = 30;
     int direction = 0;
-    
 
+    bool releasedSwitch = false;
+    
+    public bool timerStarted = false;
+    public bool isColliding = false;
+    public float timerPlatform = 0f;
+    public float timerDuration = 1.3f;
+
+    bool sleep = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,13 +44,13 @@ public class movement : MonoBehaviour
             direction = 1;
         } else if (Input.GetKeyUp(movementArray[keyIndexes[2]])) {
             direction = 0;
-            //releasedSwitch = true;
+            releasedSwitch = true;
         } else if (Input.GetKeyUp(movementArray[keyIndexes[3]])) {
             direction = 0;
-            //releasedSwitch = true;
+            releasedSwitch = true;
         }
         timer -= Time.deltaTime;
-        if (timer <= 0) {
+        if (timer <= 0 && releasedSwitch) {
             timer = 5;
             //releasedSwitch = false;
             keyIndexes = generateRandomIx(4);
@@ -54,9 +61,55 @@ public class movement : MonoBehaviour
             
            
         }
-        //releasedSwitch = false;
+        releasedSwitch = false;
         
 
+        //bool isColliding = false;
+        //bool timerStarted = false;
+        //float timerDuration = 3f;
+        //float timerPlatform = 0f;
+
+        isColliding = jumpChecker.onPlatform;
+
+        if (isColliding && !timerStarted)
+        {
+            Debug.Log("Start Timer");
+            // Start the timer
+            timerStarted = true;
+            timerPlatform = 0f;
+        }
+
+        if (timerStarted)
+        {
+            // Increment the timer
+            Debug.Log("timer: ");
+            Debug.Log(timerPlatform);
+            timerPlatform += Time.deltaTime;
+
+            if (timerPlatform >= timerDuration)
+            {
+                // Timer expired, perform the action
+                transform.position = new Vector2(transform.position.x, transform.position.y - 0.8f);
+                Debug.Log("Vreme je izteklo");
+                // Reset the timer
+                timerStarted = false;
+                timerPlatform = 0f;
+                player.WakeUp();
+                sleep = false;
+            }
+        }
+
+        if (isColliding) {
+            if (!sleep) {
+                sleep = true;
+                player.Sleep();
+            }
+        }
+
+        if (!isColliding) {
+            sleep = false;
+            timerStarted = false;
+        }
         
         moveHorizontal(direction);
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
@@ -68,19 +121,11 @@ public class movement : MonoBehaviour
             player.velocity = Vector2.up * 5;
 
         }
-
-        // RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.16f);
-        // if (hit.collider && hit.collider.name != "GameObject") {
-
-        //     Debug.Log(hit.collider.name);
-        //     Debug.Log("hits");
-        //     player.velocity = Vector2.up * 5;
-        // }
     }
 
     void down() {
-        if (player.velocity.y == 0) {
-                player.transform.position = new Vector2(transform.position.x, transform.position.y - 0.6f);
+        if (player.velocity.y == 0 && transform.position.y >= 3.50f) {
+                player.transform.position = new Vector2(transform.position.x, transform.position.y - 0.7f);
             }
     }
 

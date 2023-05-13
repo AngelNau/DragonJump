@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class platrofmMovement : MonoBehaviour
 {
+
+    public checkCollider checkIfOnPlatform;
+    public bool sleep = false;
+    public Camera m_MainCamera;
     public Rigidbody2D platform;
     public float moveSpeed = 5;
     public KeyCode[] movementArray = {KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D};
@@ -41,6 +45,7 @@ public class platrofmMovement : MonoBehaviour
             //releasedSwitch = true;
         }
 
+        Vector2 stageDimensions = m_MainCamera.ScreenToWorldPoint(new Vector2(0, Screen.height));
         timer -= Time.deltaTime;
         if (timer <= 0) {
             timer = 5;
@@ -52,6 +57,22 @@ public class platrofmMovement : MonoBehaviour
             }    
         }
 
+        if (checkIfOnPlatform.onPlatform) {
+            if (!sleep) {
+                sleep = true;
+                platform.Sleep();
+            }
+        }
+
+        if (!checkIfOnPlatform.onPlatform) {
+            sleep = false;
+            platform.WakeUp();
+        }
+        
+        if(verticalDir != 1 && platform.position.y >= stageDimensions.y) {
+            platform.position = new Vector2(platform.position.x, stageDimensions.y);
+        }
+        
         moveHorizontal(horizontalDir);
         moveVertical(verticalDir);
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);

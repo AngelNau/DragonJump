@@ -424,6 +424,10 @@ MonoBehaviour:
   movementArray: 11010000120100001401000013010000
   keyIndexes: 00000000010000000200000003000000
   axisRand: 1
+  timerStarted: 0
+  isColliding: 0
+  timerPlatform: 0
+  timerDuration: 2
 --- !u!61 &167990873
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -462,9 +466,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -711,7 +715,7 @@ GameObject:
   - component: {fileID: 570567025}
   - component: {fileID: 570567024}
   - component: {fileID: 570567026}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big-crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1029,6 +1033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canJump: 1
+  onPlatform: 0
 --- !u!1 &840240368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,7 +1158,7 @@ GameObject:
   - component: {fileID: 868946018}
   - component: {fileID: 868946017}
   - component: {fileID: 868946019}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HelpingPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1239,9 +1244,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -1286,6 +1291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa12ef81e27a6045bdb6ef0449c8f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkIfOnPlatform: {fileID: 826631248}
+  sleep: 0
   platform: {fileID: 868946017}
   moveSpeed: 5
   movementArray: 77000000730000006100000064000000
@@ -1302,7 +1309,7 @@ GameObject:
   - component: {fileID: 1156386811}
   - component: {fileID: 1156386810}
   - component: {fileID: 1156386812}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: big-crate (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1412,7 +1419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1308808693}
   - component: {fileID: 1308808692}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bush (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2468,7 +2475,7 @@ GameObject:
   - component: {fileID: 1933366882}
   - component: {fileID: 1933366881}
   - component: {fileID: 1933366883}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Finish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
