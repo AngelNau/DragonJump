@@ -9,7 +9,7 @@ public class platrofmMovement : MonoBehaviour
     public KeyCode[] movementArray = {KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D};
     public int[] keyIndexes = {0, 1, 2, 3};
     public int axisRand = 1;
-    float timer = 5;
+    float timer = 30;
     int horizontalDir = 0;
     int verticalDir = 0;
 
@@ -54,6 +54,7 @@ public class platrofmMovement : MonoBehaviour
 
         moveHorizontal(horizontalDir);
         moveVertical(verticalDir);
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
     }
 
     void moveHorizontal(int dir) {

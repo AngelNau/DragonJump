@@ -6,20 +6,21 @@ public class movement : MonoBehaviour
 {
 
 
+    public checkCollider jumpChecker;
 
     public Rigidbody2D player;
     public float moveSpeed = 5;
     public KeyCode[] movementArray = {KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.RightArrow};
     public int[] keyIndexes = {0, 1, 2, 3};
     public int axisRand = 1;
-    float timer = 5;
+    float timer = 30;
     int direction = 0;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -58,19 +59,28 @@ public class movement : MonoBehaviour
 
         
         moveHorizontal(direction);
-
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
 
     }
 
     void jump() {
-        if (player.velocity.y == 0) {
-                player.velocity = Vector2.up * 5;
-            }
+        if(jumpChecker.canJump){
+            player.velocity = Vector2.up * 5;
+
+        }
+
+        // RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.16f);
+        // if (hit.collider && hit.collider.name != "GameObject") {
+
+        //     Debug.Log(hit.collider.name);
+        //     Debug.Log("hits");
+        //     player.velocity = Vector2.up * 5;
+        // }
     }
 
     void down() {
         if (player.velocity.y == 0) {
-                player.transform.position = new Vector2(transform.position.x, transform.position.y - 1);
+                player.transform.position = new Vector2(transform.position.x, transform.position.y - 0.6f);
             }
     }
 
@@ -93,4 +103,6 @@ public class movement : MonoBehaviour
 
         return result;
     }
+
+
 }
