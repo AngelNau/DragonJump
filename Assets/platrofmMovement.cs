@@ -9,6 +9,7 @@ public class platrofmMovement : MonoBehaviour
     public KeyCode[] movementArray = {KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D};
     public int[] keyIndexes = {0, 1, 2, 3};
     public int axisRand = 1;
+    public Camera m_MainCamera;
     float timer = 5;
     int horizontalDir = 0;
     int verticalDir = 0;
@@ -20,6 +21,7 @@ public class platrofmMovement : MonoBehaviour
     
     void Update()
     {
+        Vector2 stageDimensions = m_MainCamera.ScreenToWorldPoint(new Vector2(0, Screen.height));
         if (Input.GetKeyDown(movementArray[keyIndexes[0]])) {
                 verticalDir = 1;
             } else if (Input.GetKeyDown(movementArray[keyIndexes[1]])) {
@@ -44,16 +46,13 @@ public class platrofmMovement : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0) {
             timer = 5;
-            //releasedSwitch = false;
             keyIndexes = generateRandomIx(4);
-            for (int i = 0; i < 4; i++) {
-                Debug.Log("ix:");
-                Debug.Log(keyIndexes[i]);
-            }    
         }
-
-        moveHorizontal(horizontalDir);
+        if(verticalDir != 1 && platform.position.y >= stageDimensions.y) {
+            platform.position = new Vector2(platform.position.x, stageDimensions.y);
+        }
         moveVertical(verticalDir);
+        moveHorizontal(horizontalDir);
     }
 
     void moveHorizontal(int dir) {

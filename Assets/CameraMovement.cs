@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public Transform playerTransform;
+    public Transform platformTransform;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,7 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         Vector3 newPos = transform.position;
-        newPos.y = playerTransform.position.y;
+        newPos.y = (playerTransform.position.y + platformTransform.position.y) / 2;
         transform.position = newPos;
     }
 }
