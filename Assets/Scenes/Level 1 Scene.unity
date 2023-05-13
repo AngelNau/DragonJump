@@ -330,7 +330,6 @@ GameObject:
   - component: {fileID: 167990870}
   - component: {fileID: 167990872}
   - component: {fileID: 167990875}
-  - component: {fileID: 167990876}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -452,19 +451,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.33, y: 0.32}
   m_EdgeRadius: 0
---- !u!114 &167990876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167990869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a465172737901840bd6e1b531a521d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!1 &212159289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,16 +1048,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d345348e15f27148990e9afad047c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 5
-  crouchScale: 0.5
-  groundCheck: {fileID: 0}
-  groundLayer:
-    m_Bits: 0
-  rb: {fileID: 0}
-  isGrounded: 0
-  isCrouching: 0
-  originalScale: 0
 --- !u!1 &794102117
 GameObject:
   m_ObjectHideFlags: 0
