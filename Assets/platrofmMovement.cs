@@ -2,45 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movement : MonoBehaviour
+public class platrofmMovement : MonoBehaviour
 {
-
-
-
-    public Rigidbody2D player;
+    public Rigidbody2D platform;
     public float moveSpeed = 5;
-    public KeyCode[] movementArray = {KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.RightArrow};
+    public KeyCode[] movementArray = {KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D};
     public int[] keyIndexes = {0, 1, 2, 3};
     public int axisRand = 1;
     float timer = 5;
-    int direction = 0;
-    
+    int horizontalDir = 0;
+    int verticalDir = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (Input.GetKeyDown(movementArray[keyIndexes[0]])) {
-            jump();
-        } else if (Input.GetKeyDown(movementArray[keyIndexes[1]])) {
-            down();
-        }
+                verticalDir = 1;
+            } else if (Input.GetKeyDown(movementArray[keyIndexes[1]])) {
+                verticalDir = -1;
+            } else if (Input.GetKeyUp(movementArray[keyIndexes[0]])) {
+                verticalDir = 0;
+            } else if (Input.GetKeyUp(movementArray[keyIndexes[1]])) {
+                verticalDir = 0;
+            }
         if (Input.GetKeyDown(movementArray[keyIndexes[2]])) {
-            direction = -1;
+            horizontalDir = -1;
         } else if (Input.GetKeyDown(movementArray[keyIndexes[3]])) {
-            direction = 1;
+            horizontalDir = 1;
         } else if (Input.GetKeyUp(movementArray[keyIndexes[2]])) {
-            direction = 0;
+            horizontalDir = 0;
             //releasedSwitch = true;
         } else if (Input.GetKeyUp(movementArray[keyIndexes[3]])) {
-            direction = 0;
+            horizontalDir = 0;
             //releasedSwitch = true;
         }
+
         timer -= Time.deltaTime;
         if (timer <= 0) {
             timer = 5;
@@ -49,33 +49,19 @@ public class movement : MonoBehaviour
             for (int i = 0; i < 4; i++) {
                 Debug.Log("ix:");
                 Debug.Log(keyIndexes[i]);
-            }
-            
-           
+            }    
         }
-        //releasedSwitch = false;
-        
 
-        
-        moveHorizontal(direction);
-
-
-    }
-
-    void jump() {
-        if (player.velocity.y == 0) {
-                player.velocity = Vector2.up * 5;
-            }
-    }
-
-    void down() {
-        if (player.velocity.y == 0) {
-                player.transform.position = new Vector2(transform.position.x, transform.position.y - 1);
-            }
+        moveHorizontal(horizontalDir);
+        moveVertical(verticalDir);
     }
 
     void moveHorizontal(int dir) {
-        player.velocity = new Vector2(dir * moveSpeed, player.velocity.y);
+        platform.velocity = new Vector2(dir * moveSpeed, platform.velocity.y);
+    }
+
+    void moveVertical(int dir) {
+        platform.velocity = new Vector2(platform.velocity.x, dir * moveSpeed);
     }
 
     public static int[] generateRandomIx(int count)
@@ -94,3 +80,4 @@ public class movement : MonoBehaviour
         return result;
     }
 }
+
