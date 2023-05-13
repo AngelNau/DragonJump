@@ -1,9 +1,16 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 7f00a28a9d72c0441b5ada803fba5dea
 =======
 guid: 515ca4368e05f0345960c59312339f58
 >>>>>>> dd341e2 (Animations - Idle, Walk, Jump)
+=======
+guid: 515ca4368e05f0345960c59312339f58
+=======
+guid: 7f00a28a9d72c0441b5ada803fba5dea
+>>>>>>> 95111cd (Movement code, still contains small bug)
+>>>>>>> b0bfe71 (Movement code, still contains small bug)
 TextureImporter:
   internalIDToNameTable:
   - first:
