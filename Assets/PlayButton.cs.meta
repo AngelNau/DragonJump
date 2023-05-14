@@ -1,9 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<<< HEAD:Assets/cameraMovement.cs.meta
 guid: c967a52aaaacbcf4e8cf8813c1ae7de0
 ========
 guid: 143dcb367db539a49924cf4a8a18e03a
 >>>>>>>> e26f950 (Main menu):Assets/PlayButton.cs.meta
+=======
+guid: 143dcb367db539a49924cf4a8a18e03a
+>>>>>>> e26f95051f7e6a365db9a7cace61967ae2e235a7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
