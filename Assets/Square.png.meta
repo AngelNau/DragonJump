@@ -2,6 +2,7 @@ fileFormatVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 7f00a28a9d72c0441b5ada803fba5dea
 =======
 guid: 515ca4368e05f0345960c59312339f58
@@ -23,6 +24,9 @@ guid: 515ca4368e05f0345960c59312339f58
 >>>>>>> dd341e2 (Animations - Idle, Walk, Jump)
 >>>>>>> 73eb6b3 (Animations - Idle, Walk, Jump)
 >>>>>>> d6f6540 (Square.png making problems)
+=======
+guid: 515ca4368e05f0345960c59312339f58
+>>>>>>> origin/M_1
 TextureImporter:
   internalIDToNameTable:
   - first:
