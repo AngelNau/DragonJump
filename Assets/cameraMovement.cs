@@ -17,6 +17,9 @@ public class cameraMovement : MonoBehaviour
     {
         Vector3 newPos = transform.position;
         newPos.y = (playerTransform.position.y + platformTransform.position.y) / 2;
-        transform.position = newPos;
+        //transform.position = newPos;
+        if (newPos.y > 0) {
+            transform.position = newPos;
+        }
     }
 }

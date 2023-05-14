@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class checkCollider : MonoBehaviour
 {
-public  bool canJump = true;
-public bool onPlatform = false;
+    public  bool canJump = true;
+    public bool onPlatform = false;
+    public bool levelFinished = false;
 
     private void OnTriggerEnter2D(Collider2D collider) {
         if(collider.gameObject.layer == LayerMask.NameToLayer("Ground")){
@@ -16,6 +17,10 @@ public bool onPlatform = false;
             Debug.Log("On Platform");
             onPlatform = true;
             canJump = true;
+        }
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Finish")) {
+            levelFinished = true;
+            Debug.Log(levelFinished);
         }
     }
     private void OnTriggerExit2D(Collider2D collider){
@@ -28,5 +33,6 @@ public bool onPlatform = false;
             onPlatform = false;
             canJump = false;
         }
+         
     }
 }
