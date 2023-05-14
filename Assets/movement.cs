@@ -7,14 +7,22 @@ public class movement : MonoBehaviour
 
 
     public checkCollider jumpChecker;
+    public Animator animatorDragon;
 
     public Rigidbody2D player;
     public float moveSpeed = 5;
     public KeyCode[] movementArray = {KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.RightArrow};
     public int[] keyIndexes = {0, 1, 2, 3};
     public int axisRand = 1;
-    float timer = 5;
+    float timer = 1000;
     int direction = 0;
+
+    public float runSpeed = 40f;
+    float horizontalMoveA = 0f;
+
+    bool releasedSwitch = false;
+
+    bool inAir = false;
     
 
     // Start is called before the first frame update
@@ -26,8 +34,16 @@ public class movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        horizontalMoveA = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+        animatorDragon.SetFloat("Speed", Mathf.Abs(horizontalMoveA));
+
+
         if (Input.GetKeyDown(movementArray[keyIndexes[0]])) {
+            animatorDragon.SetBool("isJumping", true);
             jump();
+            animatorDragon.SetBool("isJumping", false);
         } else if (Input.GetKeyDown(movementArray[keyIndexes[1]])) {
             down();
         }
@@ -37,13 +53,13 @@ public class movement : MonoBehaviour
             direction = 1;
         } else if (Input.GetKeyUp(movementArray[keyIndexes[2]])) {
             direction = 0;
-            //releasedSwitch = true;
+            releasedSwitch = true;
         } else if (Input.GetKeyUp(movementArray[keyIndexes[3]])) {
             direction = 0;
-            //releasedSwitch = true;
+            releasedSwitch = true;
         }
         timer -= Time.deltaTime;
-        if (timer <= 0) {
+        if (timer <= 0 && releasedSwitch) {
             timer = 5;
             //releasedSwitch = false;
             keyIndexes = generateRandomIx(4);
@@ -54,24 +70,46 @@ public class movement : MonoBehaviour
             
            
         }
-        //releasedSwitch = false;
+        releasedSwitch = false;
         
+        float platformTimer = 1.5f;
+        if (jumpChecker.canJump) {
+            platformTimer -= Time.deltaTime;
+        } else {
+            platformTimer = 1.5f;
+        }
 
+        if (platformTimer <= 0) {
+            player.transform.position = new Vector2(transform.position.x, transform.position.y - 2f);
+        }
+        if (!jumpChecker.canJump) {
+            animatorDragon.SetFloat("Speed", 0);
+        }
+        
         
         moveHorizontal(direction);
-
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
 
     }
 
     void jump() {
-        if (player.velocity.y == 0) {
-                player.velocity = Vector2.up * 5;
-            }
+        if(jumpChecker.canJump){
+            player.velocity = Vector2.up * 5;
+
+        }
+
+        // RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.16f);
+        // if (hit.collider && hit.collider.name != "GameObject") {
+
+        //     Debug.Log(hit.collider.name);
+        //     Debug.Log("hits");
+        //     player.velocity = Vector2.up * 5;
+        // }
     }
 
     void down() {
-        if (player.velocity.y == 0) {
-                player.transform.position = new Vector2(transform.position.x, transform.position.y - 1);
+        if (player.velocity.y == 0 && transform.position.y >= 3.50f) {
+                player.transform.position = new Vector2(transform.position.x, transform.position.y - 0.6f);
             }
     }
 
@@ -94,4 +132,6 @@ public class movement : MonoBehaviour
 
         return result;
     }
+
+
 }
